@@ -1,0 +1,32 @@
+﻿@model  IEnumerable<APP_VENTAS01.Models.PRODUCTO>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Maestro de Productos</h2>
+<br />
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">DESCRIPCIÓN</th>
+            <th class="text-center">PRECIO</th>
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">@item.ID</td>
+                <td>@item.NOMBRE</td>
+                <td>@String.Format("{0:C}", item.PRECIO)</td>
+                <td class="text-center">
+                    @Html.ActionLink("Agregar", "AgregarCarrito", "Carrito",
+               new { Id = item.ID },null)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+

@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "AgregarCarrito";
+}
+
+<h2 class="text-center">Agregar Productos al Carrito - SHOPPING CART</h2>
+<br />
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th></th>
+            <th>DESCRIPCION</th>
+            <th></th>
+            <th>CANTIDAD</th>
+            <th></th>
+            <th>PRECIO</th>
+            <th></th>
+            <th>SUB TOTAL</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            double total = 0;
+
+
+
+        }
+        @if (Session["carrito"] != null)
+        {
+            foreach (var item in Session["carrito"] as List<APP_VENTAS01.Models.CarritoItem>)
+            {
+                total += (double)(item.Cantidad * item.Producto.PRECIO);
+                <tr>
+                    <td>@item.Producto.ID</td>
+                    <td></td>
+                    <td>@item.Producto.NOMBRE</td>
+                    <td></td>
+                    <td>@item.Cantidad</td>
+                    <td></td>
+                    <td>@String.Format("{0:C}", item.Producto.PRECIO)</td>
+                    <td></td>
+                    <td style="text-align:right;">@String.Format("{0:C}", item.Cantidad * item.Producto.PRECIO)</td>
+                    <td></td>
+                    <td>@Html.ActionLink("Eliminar", "Delete", "Carrito", new { Id = item.Producto.ID }, null)</td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tr></tr>
+    <tfoot>
+        <tr></tr>
+        <tr>
+            <th colspan="8" style="text-align:right">Total ::</th>
+            <th>
+                @String.Format("{0:C}", total)
+            </th>
+        </tr>
+    </tfoot>
+</table>
+<br />
+<hr />
+<table>
+    <tr>
+        <th>
+            @Html.ActionLink("Seguir COmprando", "Index", "Producto", null, null)
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Html.ActionLink("Generar Pedido", "FinalizarCompra", "Carrito", null, null)
+        </th>
+    </tr>
+</table>
